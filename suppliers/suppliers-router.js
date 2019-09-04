@@ -1,8 +1,13 @@
+const router = require('express').Router();
 
+function uppercaser(req, res, next) {
+    let name = req.params.name;
 
-const express = require('express');
-
-const router = express.Router();
+    if (name) {
+        req.name = name.toUpperCase();
+    }
+    next();
+}
 
 router.use(express.json());
 
@@ -10,9 +15,13 @@ router.get('/', (req, res) => {
     res.send('get to/suppliers/')
 })
 
-router.get('/id', (req, res) => {
-    const { id } = req.params;
-    res.send(`get to /suppliers/${id}`)
+router.get('/name', uppercaser, (req, res) => {
+    //express needs to know there is a url parameter to collect
+    res.send(`get to /suppliers/${req.name}`)
 })
 
 module.exports = router;
+
+
+// const router = express.Router(); > const { router } = require();
+// module.exports = { router }

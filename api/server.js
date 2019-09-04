@@ -6,20 +6,13 @@ const suppliersRouter = require('../suppliers/suppliers-router')
 
 const server = express();
 
-function uppercaser(req, res, next) {
-    const name = req.params.name;
-    if (name) {
-        name = name.toUpperCase();
-    }
 
-    res.send(`the name is: ${name}`);
-}
 
 server.use(express.json());
 
 server.use('/products', productsRouter);
 
-server.use('/suppliers', uppercaser, suppliersRouter);
+server.use('/suppliers', suppliersRouter);
 
 //route handlers
 server.get("/", (request, response) => {
